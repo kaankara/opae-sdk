@@ -90,21 +90,27 @@ class enum_c_p : public ::testing::TestWithParam<std::string> {
     return value;
   }
 
-  int GetNumFpgaTypes() {
+  int GetNumSocketIdMatches() {
     if (platform_.mock_sysfs != nullptr) {
       return 1;
     }
 
-    int value;
-    std::string cmd = "lspci | "
-                      "grep \'Processing accelerators: "
-                            "Intel Corporation\' | "
-                      "grep -oE \'[^ ]+$\' | "
-                      "sort --unique | "
-                      "wc -l";
+    int i;
+    int matches = 0;
 
-    ExecuteCmd(cmd, value);
-    return value;
+    for (i = 0; i < GetNumFpgas(); i++) {
+      int socket_id;
+
+      std::string cmd = "cat /sys/class/fpga/intel-fpga-dev." + std::to_string(i) +
+            "/intel-fpga-fme." + std::to_string(i) + "/socket_id";
+      ExecuteCmd(cmd, socket_id);
+
+      if (socket_id == (int)platform_.devices[0].socket_id) {
+        matches++;
+      }
+    }
+
+    return matches;
   }
 
   void ExecuteCmd(std::string cmd, int &value) {
@@ -390,11 +396,7 @@ TEST_P(enum_c_p, socket_id) {
   EXPECT_EQ(
       xfpga_fpgaEnumerate(&filter_, 1, tokens_.data(), tokens_.size(), &num_matches_),
       FPGA_OK);
-  if (device.socket_id == 0) {
-    EXPECT_EQ(num_matches_, GetNumFpgaTypes() * 2);
-  } else {
-    EXPECT_EQ(num_matches_, GetNumFpgaTypes());
-  }
+  EXPECT_EQ(num_matches_, GetNumSocketIdMatches() * 2);
 }
 
 /**
