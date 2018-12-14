@@ -234,7 +234,7 @@ GLS_SIM = 1
 
 # What is the target FPGA family? The definition comes from the PIM
 # in rtl/ase_platform_config.mk.
-FPGA_FAMILY ?= UNKNOWN
+FPGA_FAMILY ?= arria10
 ifdef PLATFORM_FPGA_FAMILY_A10
   FPGA_FAMILY = arria10
 endif
@@ -335,7 +335,7 @@ endif
 ## VSIM elaboration, and run options
 # MENT_VSIM_OPT = -64
 MENT_VSIM_OPT?=
-MENT_VSIM_OPT+= -c -l run.log -dpioutoftheblue 1 -novopt
+MENT_VSIM_OPT+= -l run.log -dpioutoftheblue 1 -novopt
 MENT_VSIM_OPT+= -sv_lib $(ASE_SHOBJ_NAME) -do $(PWD)/vsim_run.tcl
 MENT_VSIM_OPT+= -sv_seed 1234
 # -voptargs="+acc"
