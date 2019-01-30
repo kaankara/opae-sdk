@@ -11,9 +11,9 @@
 
 The OPAE SDK has been tested on the following configurations.
 
-* Hardware: tightly coupled FPGA products and programmable FPGA acceleration
-  cards for Intel&reg; Xeon&reg; processors (to be released)
-* Operating System: tested on RedHat 7.3, Linux kernels 3.10 through 4.7
+* Hardware: Tightly coupled FPGA products and programmable FPGA acceleration
+  cards for Intel&reg; Xeon&reg; processors
+* Operating System: Tested on Red Hat Enterprise Linux 7.3 and 7.4, Ubuntu 16.04, SUSE SLE 12 SP3 and CentOS 7.4, with Linux kernels 3.10 through 4.7
 * Integrated FPGA FIM (FPGA Interface Manager) version: 6.4.0
 * Arria(R) 10 GX FPGA FIM version: 1.0.3 (1.0 Production)
 
@@ -225,7 +225,7 @@ $ make package_rpm
 ```
 .. note::
 ```
-Note: Providing CMAKE_INSTALL_PREFIX is optional, by default the install prefix will be /usr/local.
+Note: Providing CMAKE_INSTALL_PREFIX is optional, by default the install prefix will be /usr.
 ```
 This will generate the following rpm packages.
 
@@ -254,7 +254,7 @@ $ make package_deb
 ```
 .. note::
 ```
-Note: Providing CMAKE_INSTALL_PREFIX is optional, by default the install prefix will be /usr/local.
+Note: Providing CMAKE_INSTALL_PREFIX is optional, by default the install prefix will be /usr.
 ```
 This will generate the following deb packages.
 

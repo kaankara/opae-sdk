@@ -49,7 +49,7 @@ endif(EXISTS ${GIT_EXECUTABLE})
 ############################################################################
 
 set(INTEL_FPGA_API_VER_MAJOR 1  CACHE STRING "Intel FPGA API major version")
-set(INTEL_FPGA_API_VER_MINOR 1  CACHE STRING "Intel FPGA API minor version")
+set(INTEL_FPGA_API_VER_MINOR 2  CACHE STRING "Intel FPGA API minor version")
 set(INTEL_FPGA_API_VER_REV   0  CACHE STRING "Intel FPGA API revision version")
 set(INTEL_FPGA_API_VERSION   ${INTEL_FPGA_API_VER_MAJOR}.${INTEL_FPGA_API_VER_MINOR}.${INTEL_FPGA_API_VER_REV})
 set(INTEL_FPGA_API_HASH      ${GIT_COMMIT_HASH})
@@ -211,6 +211,9 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 option(HASH_ARCHIVES "Add git commit hash to archive names" OFF)
 mark_as_advanced(HASH_ARCHIVES)
 
+if(NOT CMAKE_INSTALL_PREFIX)
+  set(CMAKE_INSTALL_PREFIX "/usr")
+endif()
 set(CPACK_PACKAGE_NAME ${CMAKE_PROJECT_NAME})
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Open Programmable Acceleration Engine")
 SET(CPACK_PACKAGE_VENDOR "Intel Corporation")
@@ -218,7 +221,7 @@ set(CPACK_PACKAGE_VERSION_MAJOR "${INTEL_FPGA_API_VER_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${INTEL_FPGA_API_VER_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${INTEL_FPGA_API_VER_REV}")
 set(CPACK_PACKAGE_VERSION ${INTEL_FPGA_API_VERSION})
-set(CPACK_PACKAGE_RELEASE 2)
+set(CPACK_PACKAGE_RELEASE 1)
 set(CPACK_PACKAGE_CONTACT "opae@lists.01.org")
 set(CPACK_PACKAGING_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 #Hashing the package components
@@ -294,6 +297,7 @@ define_pkg(devel
   docxml
   platform
   samplesrc
+  samplebin
   safestrlib
   safestrheaders
   GROUP "devel"
